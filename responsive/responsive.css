@@ -1,0 +1,34 @@
+.airplanesafety {
+    width: 50px; /* Icon width */
+    height: 50px; /* Icon height */
+    display: inline-block; /* Display icon as inline block */
+    background-position: 1200 -1211px; /* Icon background position in sprite */
+}
+
+.elevatorsafety {
+    width: 50px; /* Icon width */
+    height: 50px; /* Icon height */
+    display: inline-block; /* Display icon as inline block */
+    background-position: 1000 -1201px; /* Icon background position in sprite */
+}
+
+.computerizedvoting {
+    width: 50px; /* Icon width */
+    height: 50px; /* Icon height */
+    display: inline-block; /* Display icon as inline block */
+    background-position: 801 -1000px; /* Icon background position in sprite */
+}
+
+.waitreally {
+    width: 50px; /* Icon width */
+    height: 50px; /* Icon height */
+    display: inline-block; /* Display icon as inline block */
+    background-position: 601 -800px; /* Icon background position in sprite */
+}
+
+.blockchain {
+    width: 50px; /* Icon width */
+    height: 50px; /* Icon height */
+    display: inline-block; /* Display icon as inline block */
+    background-position: 0 -600px; /* Icon background position in sprite */
+}
