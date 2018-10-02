@@ -1,34 +1,64 @@
-.airplanesafety {
-    width: 50px; /* Icon width */
-    height: 50px; /* Icon height */
-    display: inline-block; /* Display icon as inline block */
-    background-position: 1200 -1211px; /* Icon background position in sprite */
+/* Airplane Safety */
+
+@media only screen and (max-width: 3000px) and (min-width: 1201px) {
+    .software {
+    /* background-position: left top; */
+    width: 434px;
+    height: 575px;
+    display: inline-block; 
+    background: url("software.png") /*1201px 1204px*/ ; 
+    background-position: 0px 0px;
+    }
 }
 
-.elevatorsafety {
-    width: 50px; /* Icon width */
-    height: 50px; /* Icon height */
-    display: inline-block; /* Display icon as inline block */
-    background-position: 1000 -1201px; /* Icon background position in sprite */
+/* Elevator Safety */
+
+@media only screen and (max-width: 1200px) and (min-width: 1001px) {
+    .software {
+    /* background-position: center top; */
+    width: 434px;
+    height: 575px;
+    display: inline-block;
+    background: url("software.png") /* 1001px 1200px */ ; 
+    background-position: -435px 0px; 
+    }
 }
 
-.computerizedvoting {
-    width: 50px; /* Icon width */
-    height: 50px; /* Icon height */
-    display: inline-block; /* Display icon as inline block */
-    background-position: 801 -1000px; /* Icon background position in sprite */
+/* Computerized Voting */
+
+@media only screen and (max-width: 1000px) and (min-width: 801px) {
+    .software {
+    /* background-position: right top; */
+    width: 331px;
+    height: 575px;
+    display: inline-block; 
+    background: url("software.png") /* 801px 1000px */ ; 
+    background-position: -873px 0px;
+    }
 }
 
-.waitreally {
-    width: 50px; /* Icon width */
-    height: 50px; /* Icon height */
-    display: inline-block; /* Display icon as inline block */
-    background-position: 601 -800px; /* Icon background position in sprite */
+/* Wait, Really? */
+
+@media only screen and (max-width: 800px) and (min-width: 601px) {
+    .software {
+    /* background-position: left bottom; */
+    width: 711px;
+    height: 616px;
+    display: inline-block; 
+    background: url("software.png") /* 601px 800px */ ;
+    background-position: 0px -594px; 
+    }
 }
 
-.blockchain {
-    width: 50px; /* Icon width */
-    height: 50px; /* Icon height */
-    display: inline-block; /* Display icon as inline block */
-    background-position: 0 -600px; /* Icon background position in sprite */
+/* Blockchain */
+
+@media only screen and (max-width: 600px) and (min-width: 1px){
+    .software {
+    /* background-position: right bottom; */
+    width: 479px;
+    height: 616px;
+    display: inline-block; 
+    background: url("software.png") /* 0px 600px */; 
+    background-position: -725px -594px;
+    }
 }
