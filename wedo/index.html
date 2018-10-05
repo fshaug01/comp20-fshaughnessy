@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>We Do</title>
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+<h1 id="title">We Do</h1>
+
+<video src="https://www.cs.tufts.edu/comp/20/wedo.mp4" id="wedo" controls></video>
+<div id="lyrics"></div>
+
+<script>
+	// Get the <audio> element with id="wedo"
+	var aud = document.getElementById("wedo");
+
+	// Assign an ontimeupdate event to the <audio> element, and execute a function if the current playback position has changed
+	aud.ontimeupdate = function() {myFunction()};
+
+	function myFunction() {
+
+	if (aud.currentTime > 4 && aud.currentTime < 6) {
+		document.getElementById("lyrics").innerHTML = "Who controls the British crown?";
+	}
+	else if (aud.currentTime > 6 && aud.currentTime < 8) {
+		document.getElementById("lyrics").innerHTML = "Who keeps the metric system down?";
+	}
+	else if (aud.currentTime > 8 && aud.currentTime < 12) {
+		document.getElementById("lyrics").innerHTML = "We do, we do!";
+	}
+	else if (aud.currentTime > 12 && aud.currentTime < 15) {
+		document.getElementById("lyrics").innerHTML = "Who keeps Atlantis off the maps?";
+	}
+	else if (aud.currentTime > 15 && aud.currentTime < 16) {
+		document.getElementById("lyrics").innerHTML = "Who keeps the Martians under wraps?";
+	}
+	else if (aud.currentTime > 16 && aud.currentTime < 20) {
+		document.getElementById("lyrics").innerHTML = "We do, we do!";
+	}
+	else if (aud.currentTime > 20 && aud.currentTime < 25) {
+		document.getElementById("lyrics").innerHTML = "Who holds back the electric car?";
+	}
+	else if (aud.currentTime > 25 && aud.currentTime < 29) {
+		document.getElementById("lyrics").innerHTML = "Who makes Steve Guttenberg a star?";
+	}
+	else if (aud.currentTime > 29 && aud.currentTime < 33) {
+		document.getElementById("lyrics").innerHTML = "We do, we do!";
+	}
+	else if (aud.currentTime > 33 && aud.currentTime < 36) {
+		document.getElementById("lyrics").innerHTML = "Who robs cavefish of their sight?";
+	}	
+	else if (aud.currentTime > 36 && aud.currentTime < 37) {
+		document.getElementById("lyrics").innerHTML = "Who rigs every Oscar night?";
+	}
+	else if (aud.currentTime > 37 && aud.currentTime < 41) {
+		document.getElementById("lyrics").innerHTML = "We do!";
+	}
+	else if (aud.currentTime > 41 && aud.currentTime < 45) {
+		document.getElementById("lyrics").innerHTML = "We do!";
+	}	
+	else {
+		document.getElementById("lyrics").innerHTML = "";
+	}
+}
+
+</script>
+</body>
+</html>
