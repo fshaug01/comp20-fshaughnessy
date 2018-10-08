@@ -1,0 +1,20 @@
+/* stylesheet */
+
+h1 {
+	background-color: grey;
+	text-align: center;
+	font-family: "Times New Roman";
+	color: navy;
+}
+
+h2 {
+	background-color: black;
+	text-align: center;
+	font-family: "Times New Roman";
+	color: white;
+}
+
+video {
+	display: block;
+	margin: 0 auto;
+}

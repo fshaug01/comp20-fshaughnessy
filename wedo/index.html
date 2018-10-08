@@ -17,55 +17,54 @@
 	// Get the <audio> element with id="wedo"
 	var aud = document.getElementById("wedo");
 
-	// Assign an ontimeupdate event to the <audio> element, and execute a function if the current playback position has changed
+	// Assigns an ontimeupdate event to aud, and executes a function when current position changed
 	aud.ontimeupdate = function() {myFunction()};
 
 	function myFunction() {
 
 	if (aud.currentTime > 4 && aud.currentTime < 6) {
-		document.getElementById("lyrics").innerHTML = "Who controls the British crown?";
+		document.getElementById("lyrics").innerHTML = "<h2>Who controls the British crown?</h2>";
 	}
 	else if (aud.currentTime > 6 && aud.currentTime < 8) {
-		document.getElementById("lyrics").innerHTML = "Who keeps the metric system down?";
+		document.getElementById("lyrics").innerHTML = "<h2>Who keeps the metric system down?</h2>";
 	}
 	else if (aud.currentTime > 8 && aud.currentTime < 12) {
-		document.getElementById("lyrics").innerHTML = "We do, we do!";
+		document.getElementById("lyrics").innerHTML = "<h2>We do, we do!</h2>";
 	}
 	else if (aud.currentTime > 12 && aud.currentTime < 15) {
-		document.getElementById("lyrics").innerHTML = "Who keeps Atlantis off the maps?";
+		document.getElementById("lyrics").innerHTML = "<h2>Who keeps Atlantis off the maps?</h2>";
 	}
 	else if (aud.currentTime > 15 && aud.currentTime < 16) {
-		document.getElementById("lyrics").innerHTML = "Who keeps the Martians under wraps?";
+		document.getElementById("lyrics").innerHTML = "<h2>Who keeps the Martians under wraps?</h2>";
 	}
 	else if (aud.currentTime > 16 && aud.currentTime < 20) {
-		document.getElementById("lyrics").innerHTML = "We do, we do!";
+		document.getElementById("lyrics").innerHTML = "<h2>We do, we do!</h2>";
 	}
 	else if (aud.currentTime > 20 && aud.currentTime < 25) {
-		document.getElementById("lyrics").innerHTML = "Who holds back the electric car?";
+		document.getElementById("lyrics").innerHTML = "<h2>Who holds back the electric car?</h2>";
 	}
 	else if (aud.currentTime > 25 && aud.currentTime < 29) {
-		document.getElementById("lyrics").innerHTML = "Who makes Steve Guttenberg a star?";
+		document.getElementById("lyrics").innerHTML = "<h2>Who makes Steve Guttenberg a star?</h2>";
 	}
 	else if (aud.currentTime > 29 && aud.currentTime < 33) {
-		document.getElementById("lyrics").innerHTML = "We do, we do!";
+		document.getElementById("lyrics").innerHTML = "<h2>We do, we do!</h2>";
 	}
 	else if (aud.currentTime > 33 && aud.currentTime < 36) {
-		document.getElementById("lyrics").innerHTML = "Who robs cavefish of their sight?";
+		document.getElementById("lyrics").innerHTML = "<h2>Who robs cavefish of their sight?</h2>";
 	}	
 	else if (aud.currentTime > 36 && aud.currentTime < 37) {
-		document.getElementById("lyrics").innerHTML = "Who rigs every Oscar night?";
+		document.getElementById("lyrics").innerHTML = "<h2>Who rigs every Oscar night?</h2>";
 	}
 	else if (aud.currentTime > 37 && aud.currentTime < 41) {
-		document.getElementById("lyrics").innerHTML = "We do!";
+		document.getElementById("lyrics").innerHTML = "<h2>We do!</h2>";
 	}
 	else if (aud.currentTime > 41 && aud.currentTime < 45) {
-		document.getElementById("lyrics").innerHTML = "We do!";
+		document.getElementById("lyrics").innerHTML = "<h2>We do!</h2>";
 	}	
 	else {
 		document.getElementById("lyrics").innerHTML = "";
 	}
 }
-
 </script>
 </body>
 </html>
