@@ -35,13 +35,30 @@ var locations = [
   {name: "Braintree", LatLng: [42.2078543, -71.0011385], stop_id: "place-brntn"},
 ]
 
-locations[0].name = "South";
-locations[0].LatLng[1] = 2;
-
-
 function init() {
   map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
   getMyLocation();
+
+ for (i = 0; i < locations.length; i++) {
+  marker1 = new google.maps.Marker({
+  position: new google.maps.LatLng(locations[i].LatLng[0], locations[i].LatLng[1]),
+  map: map
+  });
+  marker1.setMap(map);  
+}
+
+  var coordinates = [{lat: 42.352271, lng: -71.05524200000001}, 
+                    {lat: 42.330154,  lng: -71.057655}, 
+                    {lat: 42.3884,  lng: -71.11914899999999}];
+
+  var mbtaLocations = new google.maps.Polyline({
+  path: coordinates,
+  geodesic: true,
+  strokeColor: '#FF0000',
+  strokeOpacity: 1.0,
+  strokeWeight: 2
+  });
+  mbtaLocations.setMap(map);
 }
 
 function getMyLocation() {
@@ -49,6 +66,7 @@ function getMyLocation() {
     navigator.geolocation.getCurrentPosition(function(position) {
       myLat = position.coords.latitude;
       myLng = position.coords.longitude;
+      // me = new google.maps.LatLng(myLat, myLng);
       renderMap();
     });
   }
@@ -66,7 +84,7 @@ function renderMap() {
   // Create a marker
   marker = new google.maps.Marker({
     position: me,
-    title: "Here I Am!"
+    title: "Current Location"
   });
   marker.setMap(map);
     
