@@ -41,8 +41,6 @@ function init() {
 
  for (i = 0; i < locations.length; i++) {
       function loadStops() {
-      /* Step 1: Make instance of XHR object...
-      ...to make HTTP request after page is loaded*/
       var stopid = locations[i].stop_id;
       request = new XMLHttpRequest();
       // Step 2: Open the JSON file at remote location
@@ -52,8 +50,8 @@ function init() {
         if (request.readyState == 4 && request.status == 200) {
           // Step 5: when we get all the JSON data back, parse it and use it
           theData = request.responseText;
-          messages = JSON.parse(theData);
-          for (i = 0; i < messages.length; i++) {
+          times = JSON.parse(theData);
+          for (i = 0; i < times.length; i++) {
 
 
 
@@ -67,10 +65,16 @@ function init() {
         content: locations[i].stop_id
     });
 
+    var icon = {
+      url: "sox.png", 
+      scaledSize: new google.maps.Size(50, 50),
+    };
+
     marker = new google.maps.Marker({
     position: new google.maps.LatLng(locations[i].LatLng[0], locations[i].LatLng[1]),
     map: map,
-    infowindow: infowindow
+    infowindow: infowindow,
+    icon: icon
   });
 
   google.maps.event.addListener(marker, 'click', function() {
