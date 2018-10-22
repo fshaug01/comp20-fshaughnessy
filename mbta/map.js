@@ -1,3 +1,5 @@
+var dic = {};
+
 var myLat = 0;
 var myLng = 0;
 var me = new google.maps.LatLng(myLat, myLng);
@@ -40,29 +42,11 @@ function init() {
   getMyLocation();
 
  for (i = 0; i < locations.length; i++) {
-      function loadStops() {
-      var stopid = locations[i].stop_id;
-      request = new XMLHttpRequest();
-      // Step 2: Open the JSON file at remote location
-      request.open("GET","https://chicken-of-the-sea.herokuapp.com/redline/schedule.json?stop_id=" + stopid, true);
-      // Step 3: set up callback for when HTTP response is returned (i.e., you get the JSON file back)
-      request.onreadystatechange = function() {
-        if (request.readyState == 4 && request.status == 200) {
-          // Step 5: when we get all the JSON data back, parse it and use it
-          theData = request.responseText;
-          times = JSON.parse(theData);
-          for (i = 0; i < times.length; i++) {
 
-
-
-          }
-        }
-      }
-    }
-
+    loadStops();
 
     var infowindow = new google.maps.InfoWindow({
-        content: locations[i].stop_id
+      content: locations[i].name, 
     });
 
     var icon = {
@@ -80,14 +64,52 @@ function init() {
   google.maps.event.addListener(marker, 'click', function() {
     this['infowindow'].open(map, this);
   })
+
+// Nearest Station
+// navigator.geolocation.getCurrentPosition(function(somePos){
+//   var userLat = somePos.coords.latitude;
+//   console.log(userLat);
+//   var userLng = somePos.coords.longitude;
+//   console.log(userLng);
+//   var userPosition = new google.maps.LatLng(userLat,userLng);
+//   console.log(userPosition);
+// });
+//   var locationsLatLng = new google.maps.LatLng(locations[i].LatLng[0], locations[i].LatLng[1]);
+//   var distance = google.maps.geometry.spherical.computeDistanceBetween(userPosition, locationsLatLng);
+//   var min;
+//   var closestStation;
+
+//   if (i = 0){
+//     min = distance;
+//   }
+
+//   if (distance < min) {
+//     min = distance;
+//     closestStation = locations[i][0];
+//     closestStationLat = locations[i][1];
+//     closestStationLng = stations[i][2];
+//   }
+//   convert
+//   min = min * 0.00621371192;
+  // var mbtaPath = [userPosition, closestStation];
+  // var mbtaClosest = new google.maps.Polyline({
+  // path: mbtaClosest,
+  // geodesic: true,
+  // strokeColor: '#FF0000',
+  // strokeOpacity: 1.0,
+  // strokeWeight: 2
+  // });
+  // mbtaLocations.setMap(map);
 }
+
+
 
   var coordinatesA = [{lat: 42.395428, lng: -71.142483}, 
                     {lat: 42.39674, lng: -71.121815}, 
                     {lat: 42.3884, lng: -71.11914899999999},
                     {lat: 42.373362, lng: -71.118956},
                     {lat: 42.365486, lng: -71.103802},
-                    {lat: 42.36249079, lng: -71.08617653}, // kendall                    
+                    {lat: 42.36249079, lng: -71.08617653},                  
                     {lat: 42.361166, lng: -71.070628},
                     {lat: 42.35639457, lng: -71.0624242},
                     {lat: 42.355518, lng: -71.060225},
@@ -109,19 +131,7 @@ function init() {
   });
   mbtaLocations.setMap(map);
 
-    var coordinatesB = [{lat: 42.395428, lng: -71.142483}, 
-                    {lat: 42.39674, lng: -71.121815}, 
-                    {lat: 42.3884, lng: -71.11914899999999},
-                    {lat: 42.373362, lng: -71.118956},
-                    {lat: 42.365486, lng: -71.103802},
-                    {lat: 42.36249079, lng: -71.08617653},                     
-                    {lat: 42.361166, lng: -71.070628},
-                    {lat: 42.35639457, lng: -71.0624242},
-                    {lat: 42.355518, lng: -71.060225},
-                    {lat: 42.352271, lng: -71.05524200000001},
-                    {lat: 42.342622, lng: -71.056967},
-                    {lat: 42.330154, lng: -71.057655},
-                    {lat: 42.320685, lng: -71.052391},
+  var coordinatesB = [{lat: 42.320685, lng: -71.052391},
                     {lat: 42.275275, lng: -71.029583},
                     {lat: 42.2665139, lng: -71.0203369},
                     {lat: 42.251809, lng: -71.005409},
@@ -143,7 +153,6 @@ function getMyLocation() {
     navigator.geolocation.getCurrentPosition(function(position) {
       myLat = position.coords.latitude;
       myLng = position.coords.longitude;
-      // me = new google.maps.LatLng(myLat, myLng);
       renderMap();
     });
   }
@@ -173,6 +182,38 @@ function renderMap() {
   });
 }
 
+function loadStops() {
+      var stopid = locations[i].stop_id;
+      request = new XMLHttpRequest();
+      console.log("hit me 1");
+      // Step 2: Open the JSON file at remote location
+      request.open("GET","https://chicken-of-the-sea.herokuapp.com/redline/schedule.json?stop_id=" + stopid, true);
+       console.log("hit me 2");
+      // Step 3: set up callback for when HTTP response is returned (i.e., you get the JSON file back)
+      request.onreadystatechange = function() {
+        console.log("Hit me 3");
+        if (request.readyState == 4 && request.status == 200) {
+          theData = request.responseText;
+          t = JSON.parse(theData);
+          times = t.data;
+          console.log(times);
+          returnHTML = "<ul>"
+          for (i = 0; i < times.length; i++) {
+              console.log(times[i]);
+              returnHTML += "<li>" + times[i].attributes.departure_time;
+              "</li>";
+              console.log(returnHTML);
+              returnHTML += "<li>" + times[i].attributes.direction_id;
+              "</li>";
+              console.log(returnHTML);
+          }
+          returnHTML += "</ul>";
+          document.getElementById("times").innerHTML =returnHTML;
+        }
+      }
+      request.send();
+      console.log("Hit me 4");
+}
 
 
 
