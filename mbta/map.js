@@ -51,7 +51,7 @@ function init() {
 
     var icon = {
       url: "sox.png", 
-      scaledSize: new google.maps.Size(50, 50),
+      scaledSize: new google.maps.Size(40, 40),
     };
 
     marker = new google.maps.Marker({
