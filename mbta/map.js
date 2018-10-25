@@ -40,7 +40,6 @@ function init() {
  for (i = 0; i < locations.length; i++) {
 
     var infowindow = new google.maps.InfoWindow();
-    //console.log(i);
 
     var icon = {
       url: "sox.png", 
@@ -130,7 +129,7 @@ function getMyLocation() {
  
 }
   var mbtaPath = [{lat: myLat, lng: myLng}, {lat: closestStation[0], lng: closestStation[1]}];
-  console.log(mbtaPath);
+  // console.log(mbtaPath);
   var mbtaClosest = new google.maps.Polyline({
     path: mbtaPath,
     geodesic: true,
@@ -169,7 +168,7 @@ function renderMap() {
 }
 
 function loadStops(marker) { 
-  console.log("in loadStops");
+  // console.log("in loadStops");
       // google.maps.event.addListener(marker, 'click', function() {
       //console.log("marker:" + marker.id);
       var request = new XMLHttpRequest();
@@ -184,7 +183,7 @@ function loadStops(marker) {
           theData = request.responseText;
           t = JSON.parse(theData);
           times = t.data;
-          console.log(times);
+          // console.log(times);
           var text = "";
           text += "<ul>";
           text += "<li>" + "Stop: " + marker.id + "</li>";
@@ -195,7 +194,7 @@ function loadStops(marker) {
               //console.log(text);
           }
           text += "</ul>";
-          console.log("Hey I'm here");
+          // console.log("Hey I'm here");
         var infowindow = new google.maps.InfoWindow();
 
         google.maps.event.addListener(marker, 'click', function () {
