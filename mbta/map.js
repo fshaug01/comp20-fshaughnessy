@@ -113,40 +113,36 @@ function getMyLocation() {
       myLng = position.coords.longitude;
       var me = new google.maps.LatLng(myLat, myLng);
  
-//     for (i = 0; i < locations.length; i++) {   
-//     var locationsLatLng = new google.maps.LatLng(locations[i].LatLng[0], locations[i].LatLng[1]);
-//     var distance = google.maps.geometry.spherical.computeDistanceBetween(me, locationsLatLng);
-//     var min;
-//     var closestStation;
+    for (i = 0; i < locations.length; i++) {   
+    var locationsLatLng = new google.maps.LatLng(locations[i].LatLng[0], locations[i].LatLng[1]);
+    var distance = google.maps.geometry.spherical.computeDistanceBetween(me, locationsLatLng);
+    var min;
+    var closestStation;
 
-//     if (i = 0){
-//       min = distance;
-//     }
+    if (i == 0){
+      min = distance;
+    }
 
-//     if (distance < min) {
-//       min = distance;
-//       closestStation = locations[i][0];
-//       closestStationLat = locations[i][1];
-//       closestStationLng = stations[i][2];
-//     }   
-// }
-      renderMap();
+    if (distance < min) {
+      min = distance;
+      closestStation = locations[i].LatLng;
+    }
  
- // Nearest Station
+}
+  var mbtaPath = [{lat: myLat, lng: myLng}, {lat: closestStation[0], lng: closestStation[1]}];
+  console.log(mbtaPath);
+  var mbtaClosest = new google.maps.Polyline({
+    path: mbtaPath,
+    geodesic: true,
+    strokeColor: '#FF0000',
+    strokeOpacity: 1.0,
+    strokeWeight: 2
+  });
 
-
-  // // convert
-  // min = min * 0.00621371192;
-  // var mbtaPath = [me, closestStation];
-  // var mbtaClosest = new google.maps.Polyline({
-  // path: mbtaClosest,
-  // geodesic: true,
-  // strokeColor: '#FF0000',
-  // strokeOpacity: 1.0,
-  // strokeWeight: 2
-  // });
+  mbtaClosest.setMap(map);
   
-  // mbtaLocations.setMap(map);
+  renderMap();
+  
   });
 }
 }
@@ -166,10 +162,10 @@ function renderMap() {
   marker.setMap(map);
     
   // Open info window on click of marker
-    google.maps.event.addListener(marker, 'click', function() {
-    infowindow.setContent(marker.title);
-    infowindow.open(map, marker);
-  });
+    // google.maps.event.addListener(marker, 'click', function() {
+    // infowindow.setContent(marker.title);
+    // infowindow.open(map, marker);
+  // });
 }
 
 function loadStops(marker) { 
@@ -194,7 +190,7 @@ function loadStops(marker) {
           text += "<li>" + "Stop: " + marker.id + "</li>";
           for (i = 0; i < times.length; i++) {
               //console.log(times[i]);
-              text += "<li>" + "Departure Times: " + times[i].attributes.departure_time + "</li>";
+              text += "<li>" + "Departure Time: " + times[i].attributes.departure_time + "</li>";
               text += "<li>" + "Direction: " + times[i].attributes.direction_id + "</li>";
               //console.log(text);
           }
