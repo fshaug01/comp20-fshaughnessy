@@ -38,8 +38,9 @@ function init() {
   getMyLocation();
 
  for (i = 0; i < locations.length; i++) {
-    console.log(i);
+
     var infowindow = new google.maps.InfoWindow();
+    //console.log(i);
 
     var icon = {
       url: "sox.png", 
@@ -58,12 +59,7 @@ function init() {
    //  loadStops(marker);
    //  infowindow.setContent(marker.title);
    //  infowindow.open(map, marker);
-    google.maps.event.addListener(marker, 'click', function () {
-      console.log(this.id);
-      loadStops(marker);
-      infowindow.setContent(this.title);
-      infowindow.open(map, this);
-    });
+    loadStops(marker);
 }
 
   var coordinatesA = [{lat: 42.395428, lng: -71.142483}, 
@@ -116,27 +112,32 @@ function getMyLocation() {
       myLat = position.coords.latitude;
       myLng = position.coords.longitude;
       var me = new google.maps.LatLng(myLat, myLng);
+ 
+//     for (i = 0; i < locations.length; i++) {   
+//     var locationsLatLng = new google.maps.LatLng(locations[i].LatLng[0], locations[i].LatLng[1]);
+//     var distance = google.maps.geometry.spherical.computeDistanceBetween(me, locationsLatLng);
+//     var min;
+//     var closestStation;
+
+//     if (i = 0){
+//       min = distance;
+//     }
+
+//     if (distance < min) {
+//       min = distance;
+//       closestStation = locations[i][0];
+//       closestStationLat = locations[i][1];
+//       closestStationLng = stations[i][2];
+//     }   
+// }
       renderMap();
  
  // Nearest Station
-  var locationsLatLng = new google.maps.LatLng(locations[0].LatLng[0], locations[0].LatLng[1]);
-  var distance = google.maps.geometry.spherical.computeDistanceBetween(me, locationsLatLng);
-  var min;
-  var closestStation;
 
-  if (i = 0){
-    min = distance;
-  }
 
-  if (distance < min) {
-    min = distance;
-    closestStation = locations[i][0];
-    closestStationLat = locations[i][1];
-    closestStationLng = stations[i][2];
-  }   
-  // convert
-  min = min * 0.00621371192;
-  var mbtaPath = [me, closestStation];
+  // // convert
+  // min = min * 0.00621371192;
+  // var mbtaPath = [me, closestStation];
   // var mbtaClosest = new google.maps.Polyline({
   // path: mbtaClosest,
   // geodesic: true,
@@ -172,35 +173,42 @@ function renderMap() {
 }
 
 function loadStops(marker) { 
+  console.log("in loadStops");
       // google.maps.event.addListener(marker, 'click', function() {
-      console.log("marker:" + marker.id);
-      request = new XMLHttpRequest();
-      console.log("hit me 1");
+      //console.log("marker:" + marker.id);
+      var request = new XMLHttpRequest();
+      //console.log("hit me 1");
       // Step 2: Open the JSON file at remote location
       request.open("GET","https://chicken-of-the-sea.herokuapp.com/redline/schedule.json?stop_id=" + marker.id, true);
-       console.log("hit me 2");
+       //console.log("hit me 2");
       // Step 3: set up callback for when HTTP response is returned (i.e., you get the JSON file back)
       request.onreadystatechange = function() {
-        console.log("Hit me 3");
+        //console.log("Hit me 3");
         if (request.readyState == 4 && request.status == 200) {
           theData = request.responseText;
           t = JSON.parse(theData);
           times = t.data;
           console.log(times);
           var text = "";
+          text += "<ul>";
+          text += "<li>" + "Stop: " + marker.id + "</li>";
           for (i = 0; i < times.length; i++) {
-              console.log(times[i]);
-              text += times[i].attributes.departure_time;
-              text += times[i].attributes.direction_id;
-              console.log(text);
+              //console.log(times[i]);
+              text += "<li>" + "Departure Times: " + times[i].attributes.departure_time + "</li>";
+              text += "<li>" + "Direction: " + times[i].attributes.direction_id + "</li>";
+              //console.log(text);
           }
-        }
+          text += "</ul>";
+          console.log("Hey I'm here");
+        var infowindow = new google.maps.InfoWindow();
+
         google.maps.event.addListener(marker, 'click', function () {
-        infoWindow.setContent(this.content);
-        infoWindow.open(map, this);
+          infowindow.setContent(text);
+          infowindow.open(map, this);
         });
+        }
       }
       request.send();
-      console.log("Hit me 4");
+      //console.log("Hit me 4");
     // });
 }
