@@ -1,11 +1,10 @@
 var myOptions = {
-  zoom: 13, // The larger the zoom number, the bigger the zoom
+  zoom: 13, 
   center: {lat: 42.352271, lng: -71.05524200000001},
   mapTypeId: google.maps.MapTypeId.ROADMAP
 };
 var map;
 var marker;
-// var infowindow = new google.maps.InfoWindow();
 
 var locations = [
   {name: "South Station", LatLng: [42.352271, -71.05524200000001], stop_id: "place-sstat"},
@@ -48,16 +47,12 @@ function init() {
 
     var marker = new google.maps.Marker({
         position: new google.maps.LatLng(locations[i].LatLng[0], locations[i].LatLng[1]),
-        title: "I'm Here",
+        title: locations[i].name,
         icon: icon,
         id: locations[i].stop_id,
         infowindow: infowindow
     });
     marker.setMap(map);
-   // google.maps.event.addListener(marker, 'click', function() {
-   //  loadStops(marker);
-   //  infowindow.setContent(marker.title);
-   //  infowindow.open(map, marker);
     loadStops(marker);
 }
 
@@ -129,7 +124,6 @@ function getMyLocation() {
  
 }
   var mbtaPath = [{lat: myLat, lng: myLng}, {lat: closestStation[0], lng: closestStation[1]}];
-  // console.log(mbtaPath);
   var mbtaClosest = new google.maps.Polyline({
     path: mbtaPath,
     geodesic: true,
@@ -159,42 +153,26 @@ function renderMap() {
   });
 
   marker.setMap(map);
-    
-  // Open info window on click of marker
-    // google.maps.event.addListener(marker, 'click', function() {
-    // infowindow.setContent(marker.title);
-    // infowindow.open(map, marker);
-  // });
 }
 
 function loadStops(marker) { 
-  // console.log("in loadStops");
-      // google.maps.event.addListener(marker, 'click', function() {
-      //console.log("marker:" + marker.id);
+     
       var request = new XMLHttpRequest();
-      //console.log("hit me 1");
-      // Step 2: Open the JSON file at remote location
       request.open("GET","https://chicken-of-the-sea.herokuapp.com/redline/schedule.json?stop_id=" + marker.id, true);
-       //console.log("hit me 2");
-      // Step 3: set up callback for when HTTP response is returned (i.e., you get the JSON file back)
       request.onreadystatechange = function() {
-        //console.log("Hit me 3");
+
         if (request.readyState == 4 && request.status == 200) {
           theData = request.responseText;
           t = JSON.parse(theData);
           times = t.data;
-          // console.log(times);
           var text = "";
           text += "<ul>";
-          text += "<li>" + "Stop: " + marker.id + "</li>";
+          text += "<li>" + "Stop: " + marker.title + "</li>";
           for (i = 0; i < times.length; i++) {
-              //console.log(times[i]);
-              text += "<li>" + "Departure Time: " + times[i].attributes.departure_time + "</li>";
-              text += "<li>" + "Direction: " + times[i].attributes.direction_id + "</li>";
-              //console.log(text);
+              text += "<li>" + "Departure Time: " + times[i].attributes.departure_time + "  Direction: " 
+                + times[i].attributes.direction_id + "</li>";
           }
           text += "</ul>";
-          // console.log("Hey I'm here");
         var infowindow = new google.maps.InfoWindow();
 
         google.maps.event.addListener(marker, 'click', function () {
@@ -204,6 +182,4 @@ function loadStops(marker) {
         }
       }
       request.send();
-      //console.log("Hit me 4");
-    // });
 }
