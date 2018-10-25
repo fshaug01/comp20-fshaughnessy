@@ -1,16 +1,11 @@
-var dic = {};
-
-var myLat = 0;
-var myLng = 0;
-var me = new google.maps.LatLng(myLat, myLng);
 var myOptions = {
   zoom: 13, // The larger the zoom number, the bigger the zoom
-  center: me,
+  center: {lat: 42.352271, lng: -71.05524200000001},
   mapTypeId: google.maps.MapTypeId.ROADMAP
 };
 var map;
 var marker;
-var infowindow = new google.maps.InfoWindow();
+// var infowindow = new google.maps.InfoWindow();
 
 var locations = [
   {name: "South Station", LatLng: [42.352271, -71.05524200000001], stop_id: "place-sstat"},
@@ -35,74 +30,41 @@ var locations = [
   {name: "Fields Corner", LatLng: [42.300093, -71.061667], stop_id: "place-fldcr"},
   {name: "Central Square", LatLng: [42.365486, -71.103802], stop_id: "place-cntsq"},
   {name: "Braintree", LatLng: [42.2078543, -71.0011385], stop_id: "place-brntn"},
-]
+];
 
 function init() {
   map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+  
   getMyLocation();
 
  for (i = 0; i < locations.length; i++) {
-
-    loadStops();
-
-    var infowindow = new google.maps.InfoWindow({
-      content: locations[i].name, 
-    });
+    console.log(i);
+    var infowindow = new google.maps.InfoWindow();
 
     var icon = {
       url: "sox.png", 
-      scaledSize: new google.maps.Size(40, 40),
+      scaledSize: new google.maps.Size(30, 30),
     };
 
-    marker = new google.maps.Marker({
-    position: new google.maps.LatLng(locations[i].LatLng[0], locations[i].LatLng[1]),
-    map: map,
-    infowindow: infowindow,
-    icon: icon
-  });
-
-  google.maps.event.addListener(marker, 'click', function() {
-    this['infowindow'].open(map, this);
-  })
-
-// Nearest Station
-// navigator.geolocation.getCurrentPosition(function(somePos){
-//   var userLat = somePos.coords.latitude;
-//   console.log(userLat);
-//   var userLng = somePos.coords.longitude;
-//   console.log(userLng);
-//   var userPosition = new google.maps.LatLng(userLat,userLng);
-//   console.log(userPosition);
-// });
-//   var locationsLatLng = new google.maps.LatLng(locations[i].LatLng[0], locations[i].LatLng[1]);
-//   var distance = google.maps.geometry.spherical.computeDistanceBetween(userPosition, locationsLatLng);
-//   var min;
-//   var closestStation;
-
-//   if (i = 0){
-//     min = distance;
-//   }
-
-//   if (distance < min) {
-//     min = distance;
-//     closestStation = locations[i][0];
-//     closestStationLat = locations[i][1];
-//     closestStationLng = stations[i][2];
-//   }
-//   convert
-//   min = min * 0.00621371192;
-  // var mbtaPath = [userPosition, closestStation];
-  // var mbtaClosest = new google.maps.Polyline({
-  // path: mbtaClosest,
-  // geodesic: true,
-  // strokeColor: '#FF0000',
-  // strokeOpacity: 1.0,
-  // strokeWeight: 2
-  // });
-  // mbtaLocations.setMap(map);
+    var marker = new google.maps.Marker({
+        position: new google.maps.LatLng(locations[i].LatLng[0], locations[i].LatLng[1]),
+        title: "I'm Here",
+        icon: icon,
+        id: locations[i].stop_id,
+        infowindow: infowindow
+    });
+    marker.setMap(map);
+   // google.maps.event.addListener(marker, 'click', function() {
+   //  loadStops(marker);
+   //  infowindow.setContent(marker.title);
+   //  infowindow.open(map, marker);
+    google.maps.event.addListener(marker, 'click', function () {
+      console.log(this.id);
+      loadStops(marker);
+      infowindow.setContent(this.title);
+      infowindow.open(map, this);
+    });
 }
-
-
 
   var coordinatesA = [{lat: 42.395428, lng: -71.142483}, 
                     {lat: 42.39674, lng: -71.121815}, 
@@ -153,12 +115,39 @@ function getMyLocation() {
     navigator.geolocation.getCurrentPosition(function(position) {
       myLat = position.coords.latitude;
       myLng = position.coords.longitude;
+      var me = new google.maps.LatLng(myLat, myLng);
       renderMap();
-    });
+ 
+ // Nearest Station
+  var locationsLatLng = new google.maps.LatLng(locations[0].LatLng[0], locations[0].LatLng[1]);
+  var distance = google.maps.geometry.spherical.computeDistanceBetween(me, locationsLatLng);
+  var min;
+  var closestStation;
+
+  if (i = 0){
+    min = distance;
   }
-  else {
-    alert("Geolocation is not supported by your web browser.  What a shame!");
-  }
+
+  if (distance < min) {
+    min = distance;
+    closestStation = locations[i][0];
+    closestStationLat = locations[i][1];
+    closestStationLng = stations[i][2];
+  }   
+  // convert
+  min = min * 0.00621371192;
+  var mbtaPath = [me, closestStation];
+  // var mbtaClosest = new google.maps.Polyline({
+  // path: mbtaClosest,
+  // geodesic: true,
+  // strokeColor: '#FF0000',
+  // strokeOpacity: 1.0,
+  // strokeWeight: 2
+  // });
+  
+  // mbtaLocations.setMap(map);
+  });
+}
 }
 
 function renderMap() {
@@ -168,7 +157,7 @@ function renderMap() {
   map.panTo(me);
   
   // Create a marker
-    marker = new google.maps.Marker({
+    var marker = new google.maps.Marker({
     position: me,
     title: "Current Location"
   });
@@ -182,12 +171,13 @@ function renderMap() {
   });
 }
 
-function loadStops() {
-      var stopid = locations[i].stop_id;
+function loadStops(marker) { 
+      // google.maps.event.addListener(marker, 'click', function() {
+      console.log("marker:" + marker.id);
       request = new XMLHttpRequest();
       console.log("hit me 1");
       // Step 2: Open the JSON file at remote location
-      request.open("GET","https://chicken-of-the-sea.herokuapp.com/redline/schedule.json?stop_id=" + stopid, true);
+      request.open("GET","https://chicken-of-the-sea.herokuapp.com/redline/schedule.json?stop_id=" + marker.id, true);
        console.log("hit me 2");
       // Step 3: set up callback for when HTTP response is returned (i.e., you get the JSON file back)
       request.onreadystatechange = function() {
@@ -197,30 +187,20 @@ function loadStops() {
           t = JSON.parse(theData);
           times = t.data;
           console.log(times);
-          returnHTML = "<ul>"
+          var text = "";
           for (i = 0; i < times.length; i++) {
               console.log(times[i]);
-              returnHTML += "<li>" + times[i].attributes.departure_time;
-              "</li>";
-              console.log(returnHTML);
-              returnHTML += "<li>" + times[i].attributes.direction_id;
-              "</li>";
-              console.log(returnHTML);
+              text += times[i].attributes.departure_time;
+              text += times[i].attributes.direction_id;
+              console.log(text);
           }
-          returnHTML += "</ul>";
-          document.getElementById("times").innerHTML =returnHTML;
         }
+        google.maps.event.addListener(marker, 'click', function () {
+        infoWindow.setContent(this.content);
+        infoWindow.open(map, this);
+        });
       }
       request.send();
       console.log("Hit me 4");
+    // });
 }
-
-
-
-
-
-
-
-
-
-
