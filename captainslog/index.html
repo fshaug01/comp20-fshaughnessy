@@ -15,23 +15,18 @@
         if(e.which == 13) {
             input = $("#msg").val();
             dateKey = new Date();
-            string = dateKey + input;
-            localStorage.setItem(dateKey, string);
+            d = dateKey.toString();
+            string = d + "            -      " + input;
+            localStorage.setItem(d, string);
             input = $("#msg").val("");
             location.reload();
         }
      });
     reload();
-
-    // for (var i = 0; i < localStorage.length; i++){
-    //     messages = localStorage.key(i);
-    //     dispMessages = $('#log').append(localStorage.getItem(messages));
-    //     }
-    // });
+    
     function reload() {
         elem = document.getElementById("log");
         output = "";
-        // Source: https://stackoverflow.com/questions/3138564/looping-through-localstorage-in-html5-and-javascript
         for (var i = 0; i < localStorage.length; i++) {
             output = output + "<p>" + localStorage.getItem(localStorage.key(i)) + "</p>\n";
         }
