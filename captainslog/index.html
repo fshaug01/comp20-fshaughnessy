@@ -28,7 +28,7 @@
         elem = document.getElementById("log");
         output = "";
         for (var i = 0; i < localStorage.length; i++) {
-            output = output + "<p>" + localStorage.getItem(localStorage.key(i)) + "</p>\n";
+            output = "<p>" + localStorage.getItem(localStorage.key(i)) + "</p>\n" + output;
         }
         elem.innerHTML = output;
     }
