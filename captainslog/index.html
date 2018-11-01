@@ -18,11 +18,15 @@
             string = dateKey + input;
             localStorage.setItem(dateKey, string);
             input = $("#msg").val("");
+            location.reload();
         }
     });
 
     for (var i = 0; i < localStorage.length; i++){
-        messages = $('#log').append(localStorage.getItem(localStorage.key(i)));
+        messages = localStorage.key(i);
+        dispMessages = $('#log').append(localStorage.getItem(messages));
+        // txt = document.getElementById("msg").value;
+        // dispMessages = $('#log').localStorage.getItem(txt);
         }
     });
 
