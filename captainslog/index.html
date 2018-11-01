@@ -13,24 +13,17 @@
     
     $("#msg").keypress(function(e) {
         if(e.which == 13) {
-            var newInput = $("#msg").val();
-            console.log(newInput);
-            alert('You pressed enter!');
+            input = $("#msg").val();
+            dateKey = new Date();
+            string = dateKey + input;
+            localStorage.setItem(dateKey, string);
+            input = $("#msg").val("");
         }
     });
 
-    // $("#log").html();
-
     for (var i = 0; i < localStorage.length; i++){
-        $('log').append(localStorage.getItem(localStorage.key(i)));
+        messages = $('#log').append(localStorage.getItem(localStorage.key(i)));
         }
-
-
-        // txt = document.getElementById("msg").value;
-        // $("#msg").value;
-        // localStorage[new Date().getTime()] = txt;
-        // reload();
-
     });
 
     </script>
