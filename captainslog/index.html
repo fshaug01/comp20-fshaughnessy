@@ -7,8 +7,34 @@
     <title>Captain's Log</title>
     <link rel="stylesheet" href="style.css" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script>
-        // Your work will be done here...
+    <script>   
+
+    $(document).ready(function() {
+    function reload() {
+
+        // elem = document.getElementById("results");
+        $("#log").html();
+    //     output = "";
+    //     for (var i = 0; i < localStorage.length; i++) {
+    //         output = output + "<p>" + localStorage.getItem(localStorage.key(i)) + "</p>\n";
+    //     }
+    //     elem.innerHTML = output;
+    for (var i = 0; i < localStorage.length; i++){
+        $('log').append(localStorage.getItem(localStorage.key(i)));
+        }
+    }
+
+
+    
+    function store() {
+        // txt = document.getElementById("msg").value;
+        $("#msg").value;
+        localStorage[new Date().getTime()] = txt;
+        reload();
+    }
+
+    });
+
     </script>
 </head>
 
