@@ -1,18 +1,18 @@
-Introduction - Provide a description of the product and what you were hired to do
+<h1> Introduction - Provide a description of the product and what you were hired to do </h1>
 
-	The product in which I was hired to perform a security assessment is the 2048 game center that William Glockner created by using Heroku and a Mongo database. My job was to evaluate the security of the application. I did this by performing attacks on the server, both before and after reading the source code.
+	<p> The product in which I was hired to perform a security assessment is the 2048 game center that William Glockner created by using Heroku and a Mongo database. My job was to evaluate the security of the application. I did this by performing attacks on the server, both before and after reading the source code. </p>
 
-Methodology - Describe your methodology pen testing the application, including the tools that you used
+<h1> Methodology - Describe your methodology pen testing the application, including the tools that you used </h1>
 	
-	I tested the application at first by using curl. I wanted to see if I could display an alert from a Cross-Site Scripting attack, which I did (specific details of this attack in Abstract of Findings). I also used a parameter search in /scores.json to see if I could perform a SQL injection attack that displayed all the scores in the database. 
+	<p> I tested the application at first by using curl. I wanted to see if I could display an alert from a Cross-Site Scripting attack, which I did (specific details of this attack in Abstract of Findings). I also used a parameter search in /scores.json to see if I could perform a SQL injection attack that displayed all the scores in the database. </p>
 
-Abstract of Findings - Provide an overview of all the security and privacy issues you identified. This section should be written for non-technical managers who do not have technical expertise and do not have time to read the entire document. Write this section using lay language.
+<h1> Abstract of Findings - Provide an overview of all the security and privacy issues you identified. This section should be written for non-technical managers who do not have technical expertise and do not have time to read the entire document. Write this section using lay language. </h1>
 
-	I found three serious security and privacy issues. The first security vulnerability I identified was Cross-Site Scripting. Cross-Site Scripting occurs when a user is able to inject scripts, or information, into the web page which can then be seen by other users on the site. I was able to create an alert box that displayed "Hacked" when the morning-thicket-88985.herokuapp.com page was loaded.
+	<p> I found three serious security and privacy issues. The first security vulnerability I identified was Cross-Site Scripting. Cross-Site Scripting occurs when a user is able to inject scripts, or information, into the web page which can then be seen by other users on the site. I was able to create an alert box that displayed "Hacked" when the morning-thicket-88985.herokuapp.com page was loaded. </p>
 
-	Another issue I discovered was vulnerabilty to a SQL injection. A SQL injection involves changing a user input, like a username for example, into a query action that reads into the database and gives up revealing information to the user. I was able to use a SQL injection that gave me the list of all scores in the database.
+	<p> Another issue I discovered was vulnerabilty to a SQL injection. A SQL injection involves changing a user input, like a username for example, into a query action that reads into the database and gives up revealing information to the user. I was able to use a SQL injection that gave me the list of all scores in the database. </p>
 
-	The third privacy issue I found was in the source code. The username for the mongo database used is hardcoded. Having sensitive information in the source code leaves the site extremely vulnerable, leaving private credentials available to be seen and exploited.
+	<p> The third privacy issue I found was in the source code. The username for the mongo database used is hardcoded. Having sensitive information in the source code leaves the site extremely vulnerable, leaving private credentials available to be seen and exploited. </p>
 
 Issues Found - For each issue that you find, document:
 	Issue (e.g., database injection, really bad programming practice)
