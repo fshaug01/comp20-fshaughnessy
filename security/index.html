@@ -5,13 +5,13 @@
 
 <h3>Methodology</h3>
 	
-	<p>I tested the application at first by using curl. I wanted to see if I could display an alert from a Cross-Site Scripting attack, which I did (specific details of this attack in Abstract of Findings). I also used a parameter search in /scores.json to see if I could perform a SQL injection attack that displayed all the scores in the database.</p>
+	<p>I tested the application at first by using curl. I wanted to see if I could display an alert from a Cross-Site Scripting attack, which I did (specific details of this attack in Abstract of Findings). I also used a parameter search in /scores.json to see if I could perform a NoSQL injection attack that displayed all the scores in the database.</p>
 
 <h3>Abstract of Findings</h3>
 
 	<p>I found three serious security and privacy issues. The first security vulnerability I identified was Cross-Site Scripting. Cross-Site Scripting occurs when a user is able to inject scripts, or information, into the web page which can then be seen by other users on the site. I was able to create an alert box that displayed "Hacked" when the morning-thicket-88985.herokuapp.com page was loaded.</p>
 
-	<p>Another issue I discovered was vulnerabilty to a SQL injection. A SQL injection involves changing a user input, like a username for example, into a query action that reads into the database and gives up revealing information to the user. I was able to use a SQL injection that gave me the list of all scores in the database.</p>
+	<p>Another issue I discovered was vulnerabilty to a NoSQL injection. A NoSQL injection involves changing a user input, like a username for example, into a query action that reads into the database and gives up revealing information to the user. I was able to use a NoSQL injection that gave me the list of all scores in the database.</p>
 
 	<p>The third privacy issue I found was in the source code. The username for the mongo database used is hardcoded. Having sensitive information in the source code leaves the site extremely vulnerable, leaving private credentials available to be seen and exploited.</p>
 
@@ -25,9 +25,9 @@
 		<p>I would resolve this problem by adding the following code to exclude special characters:</p>
 		<img src= "FixCode.jpg" alt="Fix Code">
 			
-	<h4>2. Database Injection: SQL Injection </h4>
-		<p> The issue was found on the query scores page, morning-thicket-88985.herokuapp.com/scores. I made a SQL injection that gave me access to the entire scores database. This severity of this issue is high, because hackers can gain access to sensitive information in a server's database. The issue is that this SQL injection allows a user to gain access to potentially private information. I found this by using the query string of the URL. Instead of a valid username, I created a SQL injection. In this case, my query string gives me access to the entirety of the scores. I would resolve this problem by making parametized queries. </p>
-		<img src="SQL.jpg" alt="SQL">
+	<h4>2. Database Injection: NoSQL Injection </h4>
+		<p> The issue was found on the query scores page, morning-thicket-88985.herokuapp.com/scores. I made a NoSQL injection that gave me access to the entire scores database. This severity of this issue is high, because hackers can gain access to sensitive information in a server's database. The issue is that this NoSQL injection allows a user to gain access to potentially private information. I found this by using the query string of the URL. Instead of a valid username, I created a NoSQL injection. In this case, my query string gives me access to the entirety of the scores. I would resolve this problem by making parametized queries. </p>
+		<img src="SQL.jpg" alt="NoSQL">
 	
 	<h4>3. Bad Programming Practice: Hardcoded Username Information</h4>
 		<p> The issue was found within the source code. This severity of this issue is medium, because hackers are given the server's private user information. In this case, the password is not shown so it could be worse. The issue is that this private information is easily found in the source code. Hackers could exploit this, using this username to gain control of the application.</p>
@@ -41,7 +41,7 @@
 
 <h3>References</h3>
 <p><a href="https://cwe.mitre.org/data/definitions/798.html">MITRE</a></p>
-<p><a href="https://www.owasp.org/index.php/SQL_Injection_Prevention_Cheat_Sheet">OWASP SQL</a></p>
+<p><a href="https://www.owasp.org/index.php/Testing_for_NoSQL_injection">OWASP NoSQL</a></p>
 <p><a href="https://www.owasp.org/index.php/Cross-site_Scripting_(XSS)">OWASP XSS</a></p>
 <p><a href="https://www.incapsula.com/web-application-security/cross-site-scripting-xss-attacks.html">INCAPSULA XSS</a></p>
-<p><a href="https://www.incapsula.com/web-application-security/sql-injection.html">INCAPSULA SQL</a></p>
+
