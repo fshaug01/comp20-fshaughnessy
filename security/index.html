@@ -1,12 +1,13 @@
-<h1>Introduction - Provide a description of the product and what you were hired to do</h1>
+<h1>Assignment 4: Fallon Shaughnessy</h1>
+<h3>Introduction</h3>
 
 	<p>The product in which I was hired to perform a security assessment is the 2048 game center that William Glockner created by using Heroku and a Mongo database. My job was to evaluate the security of the application. I did this by performing attacks on the server, both before and after reading the source code.</p>
 
-<h1>Methodology - Describe your methodology pen testing the application, including the tools that you used</h1>
+<h3>Methodology</h3>
 	
 	<p>I tested the application at first by using curl. I wanted to see if I could display an alert from a Cross-Site Scripting attack, which I did (specific details of this attack in Abstract of Findings). I also used a parameter search in /scores.json to see if I could perform a SQL injection attack that displayed all the scores in the database.</p>
 
-<h1>Abstract of Findings - Provide an overview of all the security and privacy issues you identified. This section should be written for non-technical managers who do not have technical expertise and do not have time to read the entire document. Write this section using lay language.</h1>
+<h3>Abstract of Findings</h3>
 
 	<p>I found three serious security and privacy issues. The first security vulnerability I identified was Cross-Site Scripting. Cross-Site Scripting occurs when a user is able to inject scripts, or information, into the web page which can then be seen by other users on the site. I was able to create an alert box that displayed "Hacked" when the morning-thicket-88985.herokuapp.com page was loaded.</p>
 
@@ -14,14 +15,33 @@
 
 	<p>The third privacy issue I found was in the source code. The username for the mongo database used is hardcoded. Having sensitive information in the source code leaves the site extremely vulnerable, leaving private credentials available to be seen and exploited.</p>
 
-Issues Found - For each issue that you find, document:
-	Issue (e.g., database injection, really bad programming practice)
-	Location or page where issue was found
-	Severity of issue (e.g., low, medium , or high). Justify your answer.
-	Description of issue. How did you find it? A screenshot of problem is excellent.
-	Proof of vulnerability. Show pictures or it didn't happen.
-	Resolution. Make recommendation(s) on how issue can be resolved. Show code if possible.
+<h3>Issues Found</h3>
 
-Conclusion - You can also list future considerations and recommendations with costs.
+	<h4>1. Cross-Site Scripting</h4>
+		<p> The issue was found on the main page, morning-thicket-88985.herokuapp.com. I coded a script so that an alert box pops up when the page first loads. This severity of this issue is high, because clients can easily embed their personal code onto the page and virtually take control of the entire site. The issue is that XSS permits hackers to put whatever script they desire onto the page, visible to all other visitors. I was able to identify it by using curl:</p>
+		<img src="XSSCurl.jpg" alt="XSS Curl">
+		<p>In this case, my alert box pops up with a message that says "hacked".</p>
+		<img src="XSS.jpg" alt="XSS" height="50%" width="60%">
+		<p>I would resolve this problem by adding the following code to exclude special characters:</p>
+		<img src= "FixCode.jpg" alt="Fix Code">
+			
+	<h4>2. Database Injection: SQL Injection </h4>
+		<p> The issue was found on the query scores page, morning-thicket-88985.herokuapp.com/scores. I made a SQL injection that gave me access to the entire scores database. This severity of this issue is high, because hackers can gain access to sensitive information in a server's database. The issue is that this SQL injection allows a user to gain access to potentially private information. I found this by using the query string of the URL. Instead of a valid username, I created a SQL injection. In this case, my query string gives me access to the entirety of the scores. I would resolve this problem by making parametized queries. </p>
+		<img src="SQL.jpg" alt="SQL">
+	
+	<h4>3. Bad Programming Practice: Hardcoded Username Information</h4>
+		<p> The issue was found within the source code. This severity of this issue is medium, because hackers are given the server's private user information. In this case, the password is not shown so it could be worse. The issue is that this private information is easily found in the source code. Hackers could exploit this, using this username to gain control of the application.</p>
+		<img src="HardCode.jpg" alt="Hard Coded Username">
+		<p>I would use these Mongo URI options instead: </p>
+		<img src="FixHardCode.jpg" alt="Fixed Mongo URI">
 
-References - A list of references and links that you used for your work.
+
+<h3>Conclusion - You can also list future considerations and recommendations with costs.</h3>
+	<p> My big takeaway from my analysis is to validate user input (never trust user input!!) and eliminate hardcoded personal information. In addition to my own analysis, my recommendation for this application is to use a software, like Burp, to scan for more security vulnerabilities. For $399.00 a year, Burp would give you access to a web security vulnerability scanner, advanced manual tools and essential manual tools. For $3,999 a year, Burp provides scheduled and repeat scans, unlimited scalability, and CI integration in addition to the security scanner. 
+
+<h3>References</h3>
+<p><a href="https://cwe.mitre.org/data/definitions/798.html">MITRE</a></p>
+<p><a href="https://www.owasp.org/index.php/SQL_Injection_Prevention_Cheat_Sheet">OWASP SQL</a></p>
+<p><a href="https://www.owasp.org/index.php/Cross-site_Scripting_(XSS)">OWASP XSS</a></p>
+<p><a href="https://www.incapsula.com/web-application-security/cross-site-scripting-xss-attacks.html">INCAPSULA XSS</a></p>
+<p><a href="https://www.incapsula.com/web-application-security/sql-injection.html">INCAPSULA SQL</a></p>
